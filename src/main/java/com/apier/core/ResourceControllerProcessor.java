@@ -14,7 +14,7 @@ import javax.lang.model.type.MirroredTypeException;
 import javax.tools.JavaFileObject;
 
 @SupportedAnnotationTypes({"com.apier.core.ResourceController"})
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
+@SupportedSourceVersion(SourceVersion.RELEASE_8) // TODO @RMA upgrade to 20
 @AutoService(Processor.class)
 public class ResourceControllerProcessor extends AbstractProcessor {
 
@@ -453,7 +453,7 @@ public class ResourceControllerProcessor extends AbstractProcessor {
 
                                         if (annotationType.simpleName().equals("RequestBody")) {
                                             parameter.addAnnotation(getInputJsonView(api, operation));
-                                            parameter.addAnnotation(ClassName.get("javax.validation", "Valid"));
+                                            parameter.addAnnotation(ClassName.get("jakarta.validation", "Valid"));
                                         }
                                     }
                                 );
