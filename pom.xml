@@ -14,9 +14,9 @@
         <javapoet.version>1.13.0</javapoet.version>
         <querydsl.version>4.3.1</querydsl.version>
         <lombok.version>1.18.24</lombok.version>
-        <java.version>8</java.version>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <java.version>19</java.version>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
     </properties>
 
     <dependencies>

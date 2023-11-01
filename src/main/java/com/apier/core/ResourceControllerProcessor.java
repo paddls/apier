@@ -4,17 +4,18 @@ import com.apier.core.criteria.CriteriaBuilder;
 import com.google.auto.service.AutoService;
 import com.google.common.base.CaseFormat;
 import com.squareup.javapoet.*;
-import java.io.PrintWriter;
-import java.util.*;
-import java.util.stream.Collectors;
+
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;
 import javax.lang.model.type.MirroredTypeException;
 import javax.tools.JavaFileObject;
+import java.io.PrintWriter;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @SupportedAnnotationTypes({"com.apier.core.ResourceController"})
-@SupportedSourceVersion(SourceVersion.RELEASE_8) // TODO @RMA upgrade to 20
+@SupportedSourceVersion(SourceVersion.RELEASE_19)
 @AutoService(Processor.class)
 public class ResourceControllerProcessor extends AbstractProcessor {
 
