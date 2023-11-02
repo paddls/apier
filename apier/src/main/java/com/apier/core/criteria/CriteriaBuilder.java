@@ -18,6 +18,7 @@ public class CriteriaBuilder {
         new StringProcessor(),
         new NumberCriteriaProcessor(),
         new DateTimeCriteriaProcessor(),
+            new ZonedDateTimeCriteriaProcessor(),
         new DeepCriteriaProcessor()
     );
 

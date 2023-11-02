@@ -28,15 +28,6 @@ public class ZonedDateTimeCriteriaProcessor implements CriteriaProcessor {
 
     @Override
     public CodeBlock getPredicate(final CriteriaFieldBuilder field) {
-        return CodeBlock
-                .builder()
-                .addStatement(
-                        "if($L != null) { predicate.and($L.toPredicate($L.$L)); }",
-                        field.getName(),
-                        field.getName(),
-                        field.getCriteriaClassBuilder().getQClassAlias(),
-                        field.getName()
-                )
-                .build();
+        return CodeBlock.builder().addStatement("if($L != null) { predicate.and($L.toPredicate($L.$L)); }", field.getName(), field.getName(), field.getCriteriaClassBuilder().getQClassAlias(), field.getName()).build();
     }
 }

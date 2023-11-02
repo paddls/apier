@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
 
+import java.time.ZonedDateTime;
+
 @Data
 @Entity
 public class Session {
@@ -15,4 +17,7 @@ public class Session {
 
     @JsonView({SessionView.Create.class, SessionView.Read.class})
     private String name;
+
+    @JsonView({SessionView.Create.class, SessionView.Read.class})
+    private ZonedDateTime createdAt;
 }
