@@ -19,6 +19,9 @@ public class Session {
     @JsonView({SessionView.Create.class, SessionView.Read.class})
     private String name;
 
+    @JsonView({SessionView.Create.class, SessionView.Read.class})
+    private Boolean isActive;
+
     @ManyToOne
     @JsonView(SessionView.Read.class)
     private Coaching coaching;

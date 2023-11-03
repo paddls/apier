@@ -6,7 +6,7 @@ import com.squareup.javapoet.FieldSpec;
 
 import javax.lang.model.element.Modifier;
 
-public class BooleanProcessor implements CriteriaProcessor {
+public class BooleanCriteriaProcessor implements CriteriaProcessor {
 
     @Override
     public boolean canApply(final CriteriaFieldBuilder field) {
