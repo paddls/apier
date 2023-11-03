@@ -3,26 +3,21 @@ package com.apier.test;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 import java.time.ZonedDateTime;
 
 @Data
 @Entity
-public class Session {
+public class Coaching {
 
     @Id
     @JsonView(SessionView.Read.class)
     private Long id;
 
-    @JsonView({SessionView.Create.class, SessionView.Read.class})
+    @JsonView(SessionView.Read.class)
     private String name;
 
-    @ManyToOne
-    @JsonView(SessionView.Read.class)
-    private Coaching coaching;
-
-    @JsonView({SessionView.Create.class, SessionView.Read.class})
+    @JsonView()
     private ZonedDateTime createdAt;
 }

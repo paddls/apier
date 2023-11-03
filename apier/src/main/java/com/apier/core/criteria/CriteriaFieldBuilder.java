@@ -25,7 +25,7 @@ public class CriteriaFieldBuilder {
 
     public boolean isDeep() {
         return !FieldUtils
-            .getAnnotations(field, Arrays.asList("javax.persistence.ManyToOne", "javax.persistence.OneToOne"))
+                .getAnnotations(field, Arrays.asList("jakarta.persistence.ManyToOne", "jakarta.persistence.OneToOne"))
             .isEmpty();
     }
 
