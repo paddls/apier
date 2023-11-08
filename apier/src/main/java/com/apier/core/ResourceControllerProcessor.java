@@ -320,21 +320,6 @@ public class ResourceControllerProcessor extends AbstractProcessor {
         return method.addAnnotation(Criteria.class);
     }
 
-//    private MethodSpec.Builder generateCriteriaClass(
-//        final MethodSpec.Builder method,
-//        final ExecutableElement api,
-//        final OperationEnum operation
-//    ) {
-//        final CriteriaBuilder criteriaBuilder = new CriteriaBuilder(api);
-//
-//        writeClass(api.getEnclosingElement().getEnclosingElement().toString(), criteriaBuilder.build());
-//
-//        return method;
-//        // TODO gt, goe, lt, loe, in
-//        // TODO filter non @ManyToOne, @OneToMany... fields
-//        // TODO deep link company.user.name
-//    }
-
     private MethodSpec.Builder addValidated(
         final MethodSpec.Builder method,
         final ExecutableElement api,
@@ -457,7 +442,7 @@ public class ResourceControllerProcessor extends AbstractProcessor {
 
                                         parameter.addAnnotation(annotationBuilder.build());
 
-                                        if (annotationType.simpleName().equals("RequestBody")) {
+                                        if (annotationType.simpleName().equals("RequestBody") || annotationType.simpleName().equals("RequestPart")) {
                                             parameter.addAnnotation(getInputJsonView(api, operation));
                                             parameter.addAnnotation(ClassName.get("jakarta.validation", "Valid"));
                                         }

@@ -16,6 +16,10 @@ public class SessionService {
         return session;
     }
 
+    public Session createWithPart(final Session session) {
+        return create(session);
+    }
+
     public List<Session> findAll(final Session session) {
         return sessionRepository.findAll();
     }
