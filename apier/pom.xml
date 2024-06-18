@@ -19,6 +19,7 @@
             <artifactId>querydsl-apt</artifactId>
             <classifier>jakarta</classifier>
             <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.google.auto.service</groupId>
