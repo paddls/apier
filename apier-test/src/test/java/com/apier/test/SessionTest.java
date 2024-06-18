@@ -1,7 +1,7 @@
 package com.apier.test;
 
 
-import com.apier.core.criteria.BooleanCriteria;
+import com.apier.core.criteria.querydsl.criteria.QBooleanCriteria;
 import org.junit.Test;
 
 public class SessionTest {
@@ -9,7 +9,7 @@ public class SessionTest {
     @Test
     public void testSessionCriteria() {
         final SessionCriteria criteria = new SessionCriteria();
-        final BooleanCriteria booleanCriteria = new BooleanCriteria();
+        final QBooleanCriteria booleanCriteria = new QBooleanCriteria();
         final SessionCriteria.CoachingCriteria coachingCriteria = new SessionCriteria.CoachingCriteria();
 
         criteria.setCoaching(coachingCriteria);

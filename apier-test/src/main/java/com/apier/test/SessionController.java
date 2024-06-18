@@ -16,6 +16,6 @@ public interface SessionController {
     Session createWithPart(@RequestPart("body") final Session session);
 
     @ResourceApi
-    List<Session> findAll(final Session criteria);
+    List<Session> findAll(final SessionCriteria criteria);
 
 }

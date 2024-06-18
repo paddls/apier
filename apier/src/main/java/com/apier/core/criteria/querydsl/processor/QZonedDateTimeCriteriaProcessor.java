@@ -1,17 +1,23 @@
-package com.apier.core.criteria;
+package com.apier.core.criteria.querydsl.processor;
 
-import com.squareup.javapoet.*;
+import com.apier.core.criteria.CriteriaFieldBuilder;
+import com.apier.core.criteria.CriteriaProcessor;
+import com.apier.core.criteria.querydsl.criteria.QZonedDateTimeCriteria;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.CodeBlock;
+import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.TypeName;
 
 import javax.lang.model.element.Modifier;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
-public class DateTimeCriteriaProcessor implements CriteriaProcessor {
+public class QZonedDateTimeCriteriaProcessor implements CriteriaProcessor {
 
     @Override
     public boolean canApply(final CriteriaFieldBuilder field) {
         try {
             final Class<?> dateClass = Class.forName(field.getTypeName());
-            return LocalDateTime.class.isAssignableFrom(dateClass);
+            return field.getCriteriaClassBuilder().resourceHasAnnotation("jakarta.persistence.Entity") && ZonedDateTime.class.isAssignableFrom(dateClass);
         } catch (final Exception exception) {
             return false;
         }
@@ -19,7 +25,7 @@ public class DateTimeCriteriaProcessor implements CriteriaProcessor {
 
     @Override
     public FieldSpec getField(final CriteriaFieldBuilder field) {
-        final TypeName fieldType = ParameterizedTypeName.get(ClassName.get(DateTimeCriteria.class), ClassName.bestGuess(field.getTypeName()));
+        final TypeName fieldType = ClassName.get(QZonedDateTimeCriteria.class);
         return FieldSpec.builder(fieldType, field.getName(), Modifier.PRIVATE).build();
     }
 

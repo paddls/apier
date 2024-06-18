@@ -7,6 +7,7 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 import lombok.Getter;
 
+import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
@@ -108,29 +109,33 @@ public class CriteriaClassBuilder {
                 }
             );
 
-        final MethodSpec toPredicateWithParam = buildToPredicateWithParam(
-            predicate -> {
-                fieldBuilders
-                    .values()
-                    .forEach(
-                        field -> {
-                            CriteriaBuilder.criteriaProcessors
-                                .stream()
-                                .filter(processor -> processor.canApply(field))
+        if (resourceHasAnnotation("jakarta.persistence.Entity")) {
+            final MethodSpec toPredicateWithParam = buildToPredicateWithParam(
+                    predicate -> {
+                        fieldBuilders
+                                .values()
                                 .forEach(
-                                    processor -> {
-                                        predicate.addCode(processor.getPredicate(field));
-                                    }
+                                        field -> {
+                                            CriteriaBuilder.criteriaProcessors
+                                                    .stream()
+                                                    .filter(processor -> processor.canApply(field))
+                                                    .forEach(
+                                                            processor -> {
+                                                                predicate.addCode(processor.getPredicate(field));
+                                                            }
+                                                    );
+                                        }
                                 );
-                        }
-                    );
-            }
-        );
+                    }
+            );
+            builder.addMethod(toPredicateWithParam);
+        }
 
-        builder.addMethod(toPredicateWithParam);
-        if (isRootCriteria()) {
+        if (isRootCriteria() && resourceHasAnnotation("jakarta.persistence.Entity")) {
             builder.addMethod(buildToPredicate());
-        } else {
+        }
+
+        if (!isRootCriteria()) {
             builder.addModifiers(Modifier.STATIC);
         }
 
@@ -175,5 +180,13 @@ public class CriteriaClassBuilder {
 
     public String getQClassAlias() {
         return GeneratorUtil.getQClassAlias(resourceType);
+    }
+
+    public boolean resourceHasAnnotation(final String annotationName) {
+        return getResourceType().asElement().getAnnotationMirrors()
+                .stream()
+                .map(AnnotationMirror.class::cast)
+                .anyMatch(annotation -> annotation.getAnnotationType().toString().equals(annotationName));
+
     }
 }

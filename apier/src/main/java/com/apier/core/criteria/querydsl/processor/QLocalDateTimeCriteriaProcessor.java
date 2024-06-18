@@ -1,5 +1,8 @@
-package com.apier.core.criteria;
+package com.apier.core.criteria.querydsl.processor;
 
+import com.apier.core.criteria.CriteriaFieldBuilder;
+import com.apier.core.criteria.CriteriaProcessor;
+import com.apier.core.criteria.querydsl.criteria.QLocalDateTimeCriteria;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
@@ -8,13 +11,13 @@ import com.squareup.javapoet.TypeName;
 import javax.lang.model.element.Modifier;
 import java.time.LocalDateTime;
 
-public class LocalDateTimeCriteriaProcessor implements CriteriaProcessor {
+public class QLocalDateTimeCriteriaProcessor implements CriteriaProcessor {
 
     @Override
     public boolean canApply(final CriteriaFieldBuilder field) {
         try {
             final Class<?> dateClass = Class.forName(field.getTypeName());
-            return LocalDateTime.class.isAssignableFrom(dateClass);
+            return field.getCriteriaClassBuilder().resourceHasAnnotation("jakarta.persistence.Entity") && LocalDateTime.class.isAssignableFrom(dateClass);
         } catch (final Exception exception) {
             return false;
         }
@@ -22,7 +25,7 @@ public class LocalDateTimeCriteriaProcessor implements CriteriaProcessor {
 
     @Override
     public FieldSpec getField(final CriteriaFieldBuilder field) {
-        final TypeName fieldType = ClassName.get(LocalDateTimeCriteria.class);
+        final TypeName fieldType = ClassName.get(QLocalDateTimeCriteria.class);
         return FieldSpec.builder(fieldType, field.getName(), Modifier.PRIVATE).build();
     }
 

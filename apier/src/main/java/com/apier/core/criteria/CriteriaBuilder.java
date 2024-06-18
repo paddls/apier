@@ -1,6 +1,7 @@
 package com.apier.core.criteria;
 
 import com.apier.core.GeneratorUtil;
+import com.apier.core.criteria.querydsl.processor.*;
 import com.squareup.javapoet.TypeSpec;
 import lombok.Getter;
 
@@ -15,12 +16,12 @@ import java.util.stream.Collectors;
 @Getter
 public class CriteriaBuilder {
     public static final List<CriteriaProcessor> criteriaProcessors = Arrays.asList(
-        new StringProcessor(),
-        new NumberCriteriaProcessor(),
-        new DateTimeCriteriaProcessor(),
-            new LocalDateTimeCriteriaProcessor(),
-            new BooleanCriteriaProcessor(),
-            new ZonedDateTimeCriteriaProcessor(),
+            new QStringProcessor(),
+            new QNumberCriteriaProcessor(),
+            new QDateTimeCriteriaProcessor(),
+            new QLocalDateTimeCriteriaProcessor(),
+            new QBooleanCriteriaProcessor(),
+            new QZonedDateTimeCriteriaProcessor(),
         new DeepCriteriaProcessor()
     );
 
@@ -35,7 +36,7 @@ public class CriteriaBuilder {
         this.criteriaClassBuilder = addCriteriaClass(getResourceType());
     }
 
-    public DeclaredType getResourceType() {
+    private DeclaredType getResourceType() {
         return ((DeclaredType) api.getReturnType()).getTypeArguments()
             .stream()
             .findFirst()
@@ -44,7 +45,7 @@ public class CriteriaBuilder {
             .orElseThrow(() -> new RuntimeException("unable to get return type from function"));
     }
 
-    public List<CriteriaClassBuilder> getChildCriteriaClassBuilders() {
+    private List<CriteriaClassBuilder> getChildCriteriaClassBuilders() {
         return classBuilders
             .values()
             .stream()
@@ -52,7 +53,7 @@ public class CriteriaBuilder {
             .collect(Collectors.toList());
     }
 
-    public CriteriaClassBuilder addCriteriaClass(final DeclaredType resourceType) {
+    private CriteriaClassBuilder addCriteriaClass(final DeclaredType resourceType) {
         final String resourceTypeName = GeneratorUtil.getTypeName(resourceType);
 
         if (!classBuilders.containsKey(resourceTypeName)) {
@@ -72,7 +73,7 @@ public class CriteriaBuilder {
         return classBuilders.get(resourceTypeName);
     }
 
-    public String getControllerName() {
+    private String getControllerName() {
         return api.getEnclosingElement().getSimpleName().toString().replace("ControllerImpl", "");
     }
 

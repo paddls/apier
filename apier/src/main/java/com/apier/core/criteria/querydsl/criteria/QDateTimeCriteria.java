@@ -1,12 +1,12 @@
-package com.apier.core.criteria;
+package com.apier.core.criteria.querydsl.criteria;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.dsl.NumberPath;
+import com.querydsl.core.types.dsl.DateTimePath;
 import lombok.Data;
 
 @Data
-public class NumberCriteria<T extends Number & Comparable<?>> {
+public class QDateTimeCriteria<T extends Comparable<?>> {
     private T eq;
 
     private T gt;
@@ -17,23 +17,23 @@ public class NumberCriteria<T extends Number & Comparable<?>> {
 
     private T loe;
 
-    public Predicate toPredicate(final NumberPath<T> number) {
+    public Predicate toPredicate(final DateTimePath<T> dateTime) {
         final BooleanBuilder predicate = new BooleanBuilder();
 
         if (eq != null) {
-            predicate.and(number.eq(eq));
+            predicate.and(dateTime.eq(eq));
         }
         if (gt != null) {
-            predicate.and(number.gt(gt));
+            predicate.and(dateTime.gt(gt));
         }
         if (lt != null) {
-            predicate.and(number.lt(lt));
+            predicate.and(dateTime.lt(lt));
         }
         if (goe != null) {
-            predicate.and(number.goe(goe));
+            predicate.and(dateTime.goe(goe));
         }
         if (loe != null) {
-            predicate.and(number.loe(loe));
+            predicate.and(dateTime.loe(loe));
         }
 
         return predicate;

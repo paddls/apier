@@ -20,7 +20,7 @@ public class SessionService {
         return create(session);
     }
 
-    public List<Session> findAll(final Session session) {
+    public List<Session> findAll(final SessionCriteria session) {
         return sessionRepository.findAll();
     }
 }

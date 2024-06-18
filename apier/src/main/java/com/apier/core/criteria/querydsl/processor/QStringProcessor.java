@@ -1,21 +1,24 @@
-package com.apier.core.criteria;
+package com.apier.core.criteria.querydsl.processor;
 
+import com.apier.core.criteria.CriteriaFieldBuilder;
+import com.apier.core.criteria.CriteriaProcessor;
+import com.apier.core.criteria.querydsl.criteria.QStringCriteria;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 
 import javax.lang.model.element.Modifier;
 
-public class StringProcessor implements CriteriaProcessor {
+public class QStringProcessor implements CriteriaProcessor {
 
     @Override
     public boolean canApply(final CriteriaFieldBuilder field) {
-        return String.class.getName().equals(field.getTypeName());
+        return field.getCriteriaClassBuilder().resourceHasAnnotation("jakarta.persistence.Entity") && String.class.getName().equals(field.getTypeName());
     }
 
     @Override
     public FieldSpec getField(final CriteriaFieldBuilder field) {
-        return FieldSpec.builder(ClassName.get(StringCriteria.class), field.getName(), Modifier.PRIVATE).build();
+        return FieldSpec.builder(ClassName.get(QStringCriteria.class), field.getName(), Modifier.PRIVATE).build();
     }
 
     @Override

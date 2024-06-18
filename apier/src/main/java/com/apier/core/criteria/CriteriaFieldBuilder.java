@@ -3,21 +3,19 @@ package com.apier.core.criteria;
 import com.apier.core.FieldUtils;
 import com.apier.core.GeneratorUtil;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import java.util.Arrays;
 
 @Getter
+@RequiredArgsConstructor
 public class CriteriaFieldBuilder {
-    private final VariableElement field;
 
     private final CriteriaClassBuilder criteriaClassBuilder;
 
-    public CriteriaFieldBuilder(final CriteriaClassBuilder criteriaClassBuilder, final VariableElement field) {
-        this.criteriaClassBuilder = criteriaClassBuilder;
-        this.field = field;
-    }
+    private final VariableElement field;
 
     public String getName() {
         return field.toString();

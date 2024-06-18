@@ -1,4 +1,4 @@
-package com.apier.core.criteria;
+package com.apier.core.criteria.querydsl.criteria;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -7,5 +7,5 @@ import java.time.LocalDateTime;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class LocalDateTimeCriteria extends DateTimeCriteria<LocalDateTime> {
+public class QLocalDateTimeCriteria extends QDateTimeCriteria<LocalDateTime> {
 }
