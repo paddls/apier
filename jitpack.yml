@@ -1,8 +1,6 @@
 before_install:
-  - sdk install java 17.0.9-amzn
-  - sdk use java 17.0.9-amzn
+  - sdk install java 17.0.13-amzn
+  - sdk use java 17.0.13-amzn
+  - sdk install maven 3.9.9
+  - sdk use maven 3.9.9
 
-install:
-  - export MAVEN_HOME=/opt/apache-maven-3.6.3
-  - export PATH=$MAVEN_HOME/bin:$PATH
-  - mvn --version
